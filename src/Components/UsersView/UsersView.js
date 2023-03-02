@@ -15,8 +15,8 @@ const UsersView = () => {
                 <span className='flex items-center my-5'><h3 className='font-semibold'>District* : </h3> <p className='mx-10'>Ramna</p> </span>
 
                 <div className='mt-16'>
-                    <Link to="/"><button className='mx-3 bg-zinc-100 p-2 px-16 rounded-sm text-sky-500/50'>Cancel</button></Link>
-                    <Link to="/updateUserForm"><button className='bg-sky-500/50 p-2 px-16 rounded-sm text-white'>Edit</button></Link>
+                    <Link to="/"><button className='mx-3 bg-zinc-100 p-2 px-16 rounded-sm text-sky-800'>Cancel</button></Link>
+                    <Link to="/updateUserForm"><button className='bg-sky-800 p-2 px-16 rounded-sm text-white'>Edit</button></Link>
                 </div>
             </div>
 

@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import CancelIcon from '@material-ui/icons/Cancel';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions, FormControl, InputLabel, OutlinedInput, InputAdornment } from "@material-ui/core";
+import { baseUrl } from '../../baseUrl';
+import AddUserModal from '../AddUserModal/AddUserModal';
+import AdminUsers from '../UsersList/AdminUsers';
 
 const Home = () => {
 
     const [open, setOpen] = useState(false);
+    const [userType, setUserType] = useState('');
+    const [usersData, setUsersData] = useState([]);
+
 
     const handleOpen = () => {
         setOpen(true);
@@ -13,67 +17,83 @@ const Home = () => {
     const handleClose = () => {
         setOpen(false);
     };
+    useEffect(() => {
 
+        fetch(`${baseUrl}/user/${userType}`)
+            .then(res => res.json())
+            .then(data => setUsersData(data));
 
+    }, [userType])
+
+    if (userType === "admin") {
+        console.log('admin');
+
+    }
+
+    if (userType === "employee") {
+        console.log('emmmm');
+    }
+    // const handleUserType = () => {
+    //     setUserType()
+    // }
+    console.log(usersData);
 
     return (
-        <div className='w-2/4 mx-auto mt-20'>
+        <div className='w-3/4 mx-auto mt-20'>
             <h4 className='my-5 font-bold'>Users List</h4>
             <hr className='mb-5' />
             <div className='flex items-center justify-between'>
-                <div className='flex '>
-                    <h4 className='mx-4'>User Type:</h4>
-                    <select className='outline' id="selectedUser" name="selectedUser">
-                        <option value="Admin">Please Select User</option>
-                        <option value="Admin">Admin Users List</option>
-                        <option value="Employee">Employee Users List</option>
-                    </select>
+                <div className='flex items-center justify-between my-5'>
+                    <h4 className='mx-4  p-2.5 font-semibold'>User Type:</h4>
+                    <div>
+                        <select
+                            onChange={(e) => setUserType(e.target.value)}
+                            className="border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none border-sky-800 bg-transparent"
+                        >
+                            <option selected disabled hidden>
+                                Choose One
+                            </option>
+                            <option
+                                value="admin"
+                                name="admin"
+                            >
+                                Admin Users
+                            </option>
+                            <option
+                                value="employee"
+                                name="employee"
+                            >
+                                Employee Users
+                            </option>
+                        </select>
+                    </div>
                 </div>
                 <div>
-                    <button onClick={handleOpen} className='bg-sky-500/50 p-2 rounded-lg text-white'>Add User</button>
+                    <button onClick={handleOpen} className='bg-sky-800 p-2 rounded-lg text-white'>Add User</button>
                 </div>
             </div>
             {/* Modal */}
+
             <div>
-                <Dialog className='' fullWidth open={open} onClose={handleClose}>
-                    <div className='text-right'>
-                        <CancelIcon onClick={handleClose} />
-                    </div>
-                    <p className='text-xl font-bold px-4'>Profile Information Creat</p>
-                    <section className="p-6">
-                        <form action="" className="container flex flex-col mx-auto space-y-12 ng-untouched ng-pristine ng-valid">
+                {userType &&
 
-                            <div className="">
-                                <div className="col-span-full sm:col-span-3 ">
-                                    <label for="firstname" className="text-sm">First name</label>
-                                    <input id="firstname" type="text" placeholder="First name"
-                                        className="w-full p-2 rounded-md focus:ring outline focus:ring-opacity-75 focus:ring-cyan-400 text-gray-900" />
-                                </div>
-                                <div className="col-span-full sm:col-span-3 my-5">
-                                    <label for="lastname" className="text-sm">Last name</label>
-                                    <input id="lastname" type="text" placeholder="Last name"
-                                        className="w-full p-2 rounded-md focus:ring outline focus:ring-opacity-75 focus:ring-cyan-400 text-gray-900" />
-                                </div>
-                                <div className="col-span-full sm:col-span-3 my-5">
-                                    <label for="email" className="text-sm">Email</label>
-                                    <input id="email" type="email" placeholder="Email"
-                                        className="w-full p-2 rounded-md focus:ring outline focus:ring-opacity-75 focus:ring-cyan-400 text-gray-900" />
-                                </div>
-                                <div className="col-span-full my-5">
-                                    <label for="address" className="text-sm">Address</label>
-                                    <input id="address" type="text" placeholder=""
-                                        className="w-full p-2 rounded-md focus:ring outline focus:ring-opacity-75 focus:ring-cyan-400 text-gray-900" />
-                                </div>
-                            </div>
+                    <AdminUsers
+                        usersData={usersData}
+                    >
 
-                            <div className='text-center'>
-                                <button onClick={handleClose} className='mx-3 bg-zinc-100 p-2 px-16 rounded-sm text-sky-500/50'>Cancel</button>
-                                <button type='submit' className='bg-sky-500/50 p-2 px-16 rounded-sm text-white'>Save</button>
-                            </div>
+                    </AdminUsers>
+                }
+            </div>
 
-                        </form>
-                    </section>
-                </Dialog>
+
+
+            <div>
+                <AddUserModal
+                    open={open}
+                    setOpen={setOpen}
+                    handleOpen={handleOpen}
+                    handleClose={handleClose}
+                ></AddUserModal>
             </div>
 
         </div>
