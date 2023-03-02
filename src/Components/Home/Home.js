@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { baseUrl } from '../../baseUrl';
 import AddUserModal from '../AddUserModal/AddUserModal';
-import AdminUsers from '../UsersList/AdminUsers';
+import Users from '../UsersList/Users';
+
 
 const Home = () => {
 
@@ -17,26 +18,24 @@ const Home = () => {
     const handleClose = () => {
         setOpen(false);
     };
+
+
     useEffect(() => {
 
         fetch(`${baseUrl}/user/${userType}`)
             .then(res => res.json())
-            .then(data => setUsersData(data));
+            .then(data => {
+                setUsersData(data)
+                // console.log(data);
+            });
 
-    }, [userType])
+    }, [userType]);
 
-    if (userType === "admin") {
-        console.log('admin');
 
-    }
 
-    if (userType === "employee") {
-        console.log('emmmm');
-    }
-    // const handleUserType = () => {
-    //     setUserType()
-    // }
-    console.log(usersData);
+
+
+
 
     return (
         <div className='w-3/4 mx-auto mt-20'>
@@ -50,18 +49,16 @@ const Home = () => {
                             onChange={(e) => setUserType(e.target.value)}
                             className="border-2 text-gray-900 text-sm rounded-lg block w-full p-2.5 focus:outline-none border-sky-800 bg-transparent"
                         >
-                            <option selected disabled hidden>
+                            <option selected disabled hidden value={''}>
                                 Choose One
                             </option>
                             <option
                                 value="admin"
-                                name="admin"
                             >
                                 Admin Users
                             </option>
                             <option
                                 value="employee"
-                                name="employee"
                             >
                                 Employee Users
                             </option>
@@ -77,11 +74,11 @@ const Home = () => {
             <div>
                 {userType &&
 
-                    <AdminUsers
+                    <Users
                         usersData={usersData}
                     >
 
-                    </AdminUsers>
+                    </Users>
                 }
             </div>
 
