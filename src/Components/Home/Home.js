@@ -38,12 +38,12 @@ const Home = () => {
 
 
     return (
-        <div className='w-3/4 mx-auto mt-20'>
+        <div className=' w-full md:w-3/4 mx-2 md:mx-auto mt-20 '>
             <h4 className='my-5 font-bold'>Users List</h4>
             <hr className='mb-5' />
             <div className='flex items-center justify-between'>
-                <div className='flex items-center justify-between my-5'>
-                    <h4 className='mx-4  p-2.5 font-semibold'>User Type:</h4>
+                <div className='flex items-center justify-around my-5'>
+                    <h4 className='md:mx-4  p-2.5 font-semibold'>User Type:</h4>
                     <div>
                         <select
                             onChange={(e) => setUserType(e.target.value)}
@@ -55,30 +55,31 @@ const Home = () => {
                             <option
                                 value="admin"
                             >
-                                Admin Users
+                                Admin
                             </option>
                             <option
                                 value="employee"
                             >
-                                Employee Users
+                                Employee
                             </option>
                         </select>
                     </div>
                 </div>
                 <div>
-                    <button onClick={handleOpen} className='bg-sky-800 p-2 rounded-lg text-white'>Add User</button>
+                    <button onClick={handleOpen} className='bg-sky-800 mr-2 p-2 rounded-lg text-white'>Add User</button>
                 </div>
             </div>
             {/* Modal */}
 
             <div>
-                {userType &&
+                {userType ?
 
                     <Users
                         usersData={usersData}
                     >
-
                     </Users>
+                    :
+                    <p className='flex justify-center my-24 md:my-32 font-bold text-lg text-gray-600 '> Please select a User Type.</p>
                 }
             </div>
 

@@ -5,13 +5,12 @@ import { baseUrl } from '../../baseUrl';
 
 const Users = ({ usersData }) => {
 
-    // console.log(usersData);
 
     return (
-        <div className='w-3/4 mx-auto overflow-x-auto md:overflow-x-hidden lg:overflow-x-hidden xl:overflow-x-hidden'>
+        <div className='w-full mx-auto overflow-x-auto md:overflow-x-hidden lg:overflow-x-hidden xl:overflow-x-hidden'>
 
             <table className="w-full">
-                <thead className=" font-semibold border-b border-b-sky-800">
+                <thead className=" font-semibold text-gray-600 border-b border-b-sky-800">
                     <tr>
                         <th className="px-6 py-4 text-start">First Name Last Name</th>
 
@@ -27,7 +26,7 @@ const Users = ({ usersData }) => {
                 </thead>
                 <tbody className="bg-white divide-y divide-secondary">
                     {usersData?.map((user, i) => (
-                        <tr key={i} className="whitespace-nowrap ">
+                        <tr key={i} className="whitespace-nowrap text-gray-700">
 
                             <td className="px-6 py-4 text-start ">{user.firstName} {user.lastName}</td>
                             <td className="px-6 py-4 text-start ">{user.userType}</td>

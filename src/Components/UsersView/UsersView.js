@@ -20,18 +20,20 @@ const UsersView = () => {
         <div className='w-2/4 mx-auto mt-20'>
             <h4 className='my-5 font-bold'>Users view</h4>
             <hr className='mb-5' />
-            <div className='mx-10'>
+            <div className='md:mx-20'>
 
-                <span className='flex items-center my-5'><h3 className='font-semibold'>First Name* : </h3> <p className='mx-10'>{firstName}</p> </span>
-                <span className='flex items-center my-5'><h3 className='font-semibold'>Last Name* : </h3> <p className='mx-10'>{lastName}</p> </span>
-                <span className='flex items-center my-5'><h3 className='font-semibold'>User Type* : </h3> <p className='mx-10'>{userType}</p> </span>
-                <span className='flex items-center my-5'><h3 className='font-semibold'>Division* : </h3> <p className='mx-10'>{division}</p> </span>
-                <span className='flex items-center my-5'><h3 className='font-semibold'>District* : </h3> <p className='mx-10'>{district}</p> </span>
+                <div className='md:mx-24'>
+                    <span className='flex items-center my-5'><h3 className='font-semibold'>First Name* : </h3> <p className='mx-8'>{firstName}</p> </span>
+                    <span className='flex items-center my-5'><h3 className='font-semibold'>Last Name* : </h3> <p className='mx-8'>{lastName}</p> </span>
+                    <span className='flex items-center my-5'><h3 className='font-semibold'>User Type* : </h3> <p className='mx-8'>{userType}</p> </span>
+                    <span className='flex items-center my-5'><h3 className='font-semibold'>Division* : </h3> <p className='mx-8'>{division}</p> </span>
+                    <span className='flex items-center my-5'><h3 className='font-semibold'>District* : </h3> <p className='mx-8'>{district}</p> </span>
+                </div>
 
                 <div className='mt-16'>
-                    <Link to="/"><button className='mx-3 bg-zinc-100 p-2 px-16 rounded-sm text-sky-800'>Cancel</button></Link>
+                    <Link to="/"><button className='mx-3 bg-zinc-100 p-2 px-5 md:px-16 rounded-sm text-sky-800'>Cancel</button></Link>
                     <Link to={`/updateUserForm/${_id}`}>
-                        <button className='bg-sky-800 p-2 px-16 rounded-sm text-white'>Edit</button>
+                        <button className='bg-sky-800 p-2 px-5 md:px-16 rounded-sm text-white'>Edit</button>
                     </Link>
                 </div>
             </div>

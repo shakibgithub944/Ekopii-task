@@ -1,50 +1,47 @@
 import { Dialog } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { useFormik } from "formik"
 import { AddUserSchema } from '../../Schema';
 import { baseUrl } from '../../baseUrl';
 import { toast } from 'react-hot-toast';
-import axios from 'axios';
+// import axios from 'axios';
 
 
+const initialValues = {
+    firstName: '',
+    lastName: '',
+    userType: '',
+    division: '',
+    district: '',
+}
 
 const AddUserModal = ({ open, setOpen, handleOpen, handleClose }) => {
-    const [divisions, setDivisions] = useState([])
 
-    const [initialValues, setInitialValues] = useState({
-        firstName: "",
-        lastName: "",
-        userType: "",
-        division: "",
-        district: "",
-
-    })
 
     const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues,
         validationSchema: AddUserSchema,
         onSubmit: (values, action) => {
             console.log(values);
-            action.resetForm();
+            fetch(`${baseUrl}/addUser`, {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data);
+                    toast.success('Successfully added a user ');
+                    handleClose();
+                    action.resetForm();
+                })
         }
     })
 
-    const handleAddUser = (e) => {
-        e.preventDefault()
-        fetch(`${baseUrl}/addUser`, {
-            method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(values)
-        })
-            .then(res => res.json())
-            .then(data => {
-                toast.success('Successfully added a user ');
-                handleClose()
-            })
-    }
+
 
     // const options = {
     //     method: 'GET',
@@ -61,9 +58,6 @@ const AddUserModal = ({ open, setOpen, handleOpen, handleClose }) => {
     // }).catch(function (error) {
     //     console.error(error);
     // });
-
-
-
 
     return (
         <div className=''>
@@ -164,9 +158,20 @@ const AddUserModal = ({ open, setOpen, handleOpen, handleClose }) => {
                                     >
                                         Chittagong
                                     </option>
+                                    <option
+                                        value="rajshahi"
+                                    >
+                                        Rajshahi
+                                    </option>
+                                    <option
+                                        value="rangpur"
+                                    >
+                                        Rangpur
+                                    </option>
                                 </select>
                                 {errors.division && touched.division ? <p className='text-sm text-red-600'>{errors.division}</p> : null}
                             </div>
+
 
 
                             <div className="col-span-full sm:col-span-3 my-5">
@@ -191,18 +196,25 @@ const AddUserModal = ({ open, setOpen, handleOpen, handleClose }) => {
                                     >
                                         Agrabad
                                     </option>
+                                    <option
+                                        value="bandarban"
+                                    >
+                                        Bandarban
+                                    </option>
+                                    <option
+                                        value="rangamati"
+                                    >
+                                        Rangamati
+                                    </option>
                                 </select>
                                 {errors.district && touched.district ? <p className='text-sm text-red-600'>{errors.district}</p> : null}
                             </div>
 
-
-
-
                         </div>
 
                         <div className='text-center'>
-                            <button onClick={handleClose} className='mx-3 bg-zinc-100 p-2 px-16 rounded-sm text-sky-800'>Cancel</button>
-                            <button type='submit' onClick={handleAddUser} className='bg-sky-800 p-2 px-16 rounded-sm text-white'>Save</button>
+                            <button type='submit' className='bg-sky-800 p-2 px-16 rounded-sm text-white'>Save</button>
+                            <button onClick={handleClose} className='mx-3 bg-zinc-100 p-2 px-14 rounded-sm text-sky-800'>Cancel</button>
                         </div>
 
                     </form>
